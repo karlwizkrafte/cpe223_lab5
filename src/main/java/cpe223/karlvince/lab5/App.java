@@ -8,13 +8,23 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import cpe223.karlvince.lab5.util.Toolbox;
+
 public class App extends Application {
 
     private static Scene scene;
+    
+    public static double SCX = Toolbox.Dynamic.screenX(25);
+    public static double SCY = Toolbox.Dynamic.screenY(60);
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("calculator_main"), 640, 480);
+
+        scene = new Scene(loadFXML("calculator_main"), SCX, SCY);
+
+        scene.getStylesheets().add(Toolbox.respath("/cpe223/karlvince/lab5/style.css"));
+
+        stage.setTitle("Calculator");
         stage.setScene(scene);
         stage.show();
     }
