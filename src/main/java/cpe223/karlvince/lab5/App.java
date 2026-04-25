@@ -22,7 +22,7 @@ public class App extends Application {
 
         scene = new Scene(loadFXML("calculator_main"), SCX, SCY);
 
-        scene.getStylesheets().add(Toolbox.respath("/cpe223/karlvince/lab5/style.css"));
+        scene.getStylesheets().add(Toolbox.respath("/cpe223/karlvince/lab5/themes/standard_theme.css"));
 
         stage.setTitle("Calculator");
         stage.setScene(scene);

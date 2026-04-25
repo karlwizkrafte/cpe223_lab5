@@ -9,15 +9,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cpe223.karlvince.lab5.CalculatorController">
    <children>
       <StackPane prefHeight="150.0" prefWidth="200.0">
          <children>
-            <TextField fx:id="tField" alignment="CENTER_RIGHT" stylesheets="@style.css" StackPane.alignment="CENTER">
+            <TextField fx:id="tField" alignment="CENTER_RIGHT" StackPane.alignment="CENTER">
                <font>
                   <Font name="Arial Bold" size="36.0" />
                </font>
+               <opaqueInsets>
+                  <Insets top="10.0" />
+               </opaqueInsets>
+               <StackPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </StackPane.margin>
             </TextField>
          </children>
       </StackPane>

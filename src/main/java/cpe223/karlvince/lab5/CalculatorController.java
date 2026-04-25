@@ -15,8 +15,8 @@ public class CalculatorController {
 
     // Button
     private static final String[][] BUTTONS = {
-        {"C", "CE", "%", "/"},
-        {"7", "8", "9", "*"},
+        {"C", "CE", "%", "÷"},
+        {"7", "8", "9", "×"},
         {"4", "5", "6", "-"},
         {"1", "2", "3", "+"},
         {"±", "0", ".", "="},
@@ -28,7 +28,7 @@ public class CalculatorController {
         root.getStyleClass().add("root");
         buttonContainer.getStyleClass().add("container");
         tField.getStyleClass().add("tf");
-
+        
         buttonContainer.setHgap(0);
         buttonContainer.setVgap(0);
         for (int row = 0; row < BUTTONS.length; row++) {
