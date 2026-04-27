@@ -3,8 +3,8 @@ package cpe223.karlvince.lab5;
 import javafx.scene.control.TextField;
 
 // [Version 0.0.1]
-public class KVCalCore {
-    
+public class KVStandardMath {
+
     public static double add(TextField... inputs) {
         double sum = 0;
 
@@ -19,7 +19,7 @@ public class KVCalCore {
         }
     }
 
-        public static double minus(TextField... inputs) {
+    public static double minus(TextField... inputs) {
         try {
             double result = Double.parseDouble(inputs[0].getText());
             for (int i = 1; i < inputs.length; i++) {
@@ -48,7 +48,8 @@ public class KVCalCore {
             double result = Double.parseDouble(inputs[0].getText());
             for (int i = 1; i < inputs.length; i++) {
                 double divisor = Double.parseDouble(inputs[i].getText());
-                if (divisor == 0) return Double.NaN;
+                if (divisor == 0)
+                    return Double.NaN;
                 result /= divisor;
             }
             return result;
@@ -56,5 +57,5 @@ public class KVCalCore {
             return Double.NaN;
         }
     }
-    
+
 }
