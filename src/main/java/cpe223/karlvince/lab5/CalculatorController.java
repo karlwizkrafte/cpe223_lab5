@@ -71,7 +71,9 @@ public class CalculatorController {
 
     private void modifyBtn(Button btn, int row, int col, String label) {
 
-        String styleNameID = String.format("[Calculator Controller] Assigned Style for %s: btn_%d_%d", label, col, row); System.out.println(styleNameID);
+        String styleNameID = String.format("btn_%d_%d", col, row);
+
+        System.out.println(String.format("[Calculator Controller] Assigned Style for %s: %s", label, styleNameID));
 
         btn.getStyleClass().add(styleNameID);
         btn.getStyleClass().add("calculatorbtn");
