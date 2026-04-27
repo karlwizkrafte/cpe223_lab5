@@ -5,6 +5,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -32,7 +34,6 @@ public class CalculatorController {
         buttonContainer.getStyleClass().add("container");
         tField.getStyleClass().add("tf");
         
-
         // TextField Modifier
         tField.setEditable(false);
         tField.setFocusTraversable(false);
@@ -67,6 +68,36 @@ public class CalculatorController {
                 buttonContainer.add(btn, col, row);     
             }
         }
+
+        // Keyboard
+        root.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
+            String keyInput = e.getText();
+            KeyCode keyCode = e.getCode();
+
+            if (keyInput.matches("[0-9+\\-*/%]") || keyInput.equals(".")) {
+                String label = keyInput.replace("*", "×").replace("/", "÷").replace("-", "−");
+                handButtonClick(label);
+                e.consume();
+            } else {
+                switch (keyCode) {
+                    case ENTER -> {
+                        handButtonClick("=");
+                        e.consume();
+                    }
+                    case BACK_SPACE -> {
+                        handButtonClick("CE");
+                        e.consume();
+                    }
+                    case ESCAPE -> {
+                        handButtonClick("C");
+                        e.consume();
+                    }
+                    default -> {}
+                }
+            }
+
+        });
+
     }
 
     private void modifyBtn(Button btn, int row, int col, String label) {
@@ -81,7 +112,6 @@ public class CalculatorController {
         btn.prefHeightProperty().bind(buttonContainer.heightProperty().multiply(0.2));
         btn.setOnAction(e -> {
             handButtonClick(label);
-            System.out.println(String.format("[Calculator Controller] '%s' is pressed", label));
         });
 
         double margin = 1.5;
@@ -108,5 +138,7 @@ public class CalculatorController {
                 }
             }
         }
+
+        System.out.println(String.format("[Calculator Controller] Event '%s' triggered", label));
     }
 }
