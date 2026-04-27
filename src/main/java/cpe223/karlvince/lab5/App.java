@@ -8,14 +8,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import cpe223.karlvince.lab5.util.Toolbox;
+import kaviyeslabs.java.utility.Toolbox;
 
 public class App extends Application {
 
     private static Scene scene;
     
-    public static double SCX = Toolbox.Dynamic.screenX(25);
-    public static double SCY = Toolbox.Dynamic.screenY(60);
+    public static double SCX = Toolbox.Screen.getWidth(25);
+    public static double SCY = Toolbox.Screen.getHeight(60);
 
     @Override
     public void start(Stage stage) throws IOException {
