@@ -18,7 +18,7 @@ public class CalculatorController {
 
     // Button
     private static final String[][] BUTTONS = {
-        {"C", "CE", "%", "÷"},
+        {"C", "DEL", "%", "÷"},
         {"7", "8", "9", "×"},
         {"4", "5", "6", "−"},
         {"1", "2", "3", "+"},
@@ -76,20 +76,20 @@ public class CalculatorController {
 
             if (keyInput.matches("[0-9+\\-*/%]") || keyInput.equals(".")) {
                 String label = keyInput.replace("*", "×").replace("/", "÷").replace("-", "−");
-                handButtonClick(label);
+                handleInteraction(label);
                 e.consume();
             } else {
                 switch (keyCode) {
                     case ENTER -> {
-                        handButtonClick("=");
+                        handleInteraction("=");
                         e.consume();
                     }
                     case BACK_SPACE -> {
-                        handButtonClick("CE");
+                        handleInteraction("DEL");
                         e.consume();
                     }
                     case ESCAPE -> {
-                        handButtonClick("C");
+                        handleInteraction("C");
                         e.consume();
                     }
                     default -> {}
@@ -111,14 +111,14 @@ public class CalculatorController {
         btn.prefWidthProperty().bind(buttonContainer.widthProperty().multiply(1.0 / BUTTONS[0].length));
         btn.prefHeightProperty().bind(buttonContainer.heightProperty().multiply(0.2));
         btn.setOnAction(e -> {
-            handButtonClick(label);
+            handleInteraction(label);
         });
 
         double margin = 1.5;
         GridPane.setMargin(btn, new Insets(margin,margin,margin,margin));
     }
 
-    private void handButtonClick(String label) {
+    private void handleInteraction(String label) {
         switch (label) {
 
             case "C"    -> { tField.clear(); tField.appendText("0"); }
@@ -127,6 +127,15 @@ public class CalculatorController {
             case "−"    -> tField.appendText(label); 
             case "×"    -> tField.appendText(label);
             case "÷"    -> tField.appendText(label);
+
+            case "DEL"  -> {
+                String current = tField.getText();
+                if (current.length() > 1) {
+                    tField.setText(current.substring(0, current.length() - 1));
+                } else {
+                    tField.setText("0");
+                }
+            }
 
             default     -> {
                 if (label.matches("[0-9]")) {
