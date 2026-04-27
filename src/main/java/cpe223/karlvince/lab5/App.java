@@ -25,6 +25,9 @@ public class App extends Application {
         scene.getStylesheets().add(Toolbox.respath("/cpe223/karlvince/lab5/themes/standard_theme.css"));
 
         stage.setTitle("Calculator");
+        stage.setMinWidth(SCX + 10);
+        stage.setMinHeight(SCY + 15);
+
         stage.setScene(scene);
         stage.show();
     }
@@ -39,7 +42,12 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        System.out.println("\033c");
+        System.out.println("Kaviyes Labs\n");
+        
         launch();
+
+        System.out.println("[App] Closed calculator");
     }
 
 }

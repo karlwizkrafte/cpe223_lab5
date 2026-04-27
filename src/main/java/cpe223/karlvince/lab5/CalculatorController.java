@@ -18,7 +18,7 @@ public class CalculatorController {
     private static final String[][] BUTTONS = {
         {"C", "CE", "%", "÷"},
         {"7", "8", "9", "×"},
-        {"4", "5", "6", "-"},
+        {"4", "5", "6", "−"},
         {"1", "2", "3", "+"},
         {"±", "0", ".", "="},
     };
@@ -26,7 +26,7 @@ public class CalculatorController {
     @FXML
     public void initialize() {
 
-
+        System.out.println("\n[Calculator Controller] Initializing\n");
 
         root.getStyleClass().add("root");
         buttonContainer.getStyleClass().add("container");
@@ -81,6 +81,7 @@ public class CalculatorController {
         btn.prefHeightProperty().bind(buttonContainer.heightProperty().multiply(0.2));
         btn.setOnAction(e -> {
             handButtonClick(label);
+            System.out.println(String.format("[Calculator Controller] '%s' is pressed", label));
         });
 
         double margin = 1.5;
@@ -90,15 +91,19 @@ public class CalculatorController {
     private void handButtonClick(String label) {
         switch (label) {
 
-            case "C"    -> tField.clear();
+            case "C"    -> { tField.clear(); tField.appendText("0"); }
             case "."    -> tField.appendText(label);
             case "+"    -> tField.appendText(label);
-            case "-"    -> tField.appendText(label); 
+            case "−"    -> tField.appendText(label); 
             case "×"    -> tField.appendText(label);
             case "÷"    -> tField.appendText(label);
 
             default     -> {
                 if (label.matches("[0-9]")) {
+
+                    if (tField.getText().equals("0")) {
+                        tField.clear();
+                    }
                     tField.appendText(label);
                 }
             }
