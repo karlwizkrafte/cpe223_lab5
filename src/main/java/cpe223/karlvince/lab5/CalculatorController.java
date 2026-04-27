@@ -34,7 +34,9 @@ public class CalculatorController {
         
 
         // TextField Modifier
-
+        tField.setEditable(false);
+        tField.setFocusTraversable(false);
+        
         tField.setPrefHeight(100);
         tField.setMinHeight(100);
         tField.setMaxHeight(100);
@@ -47,8 +49,10 @@ public class CalculatorController {
         }));
 
         tField.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal.length() > 9) {
+            if (newVal.length() > 13) {
                 tField.setStyle("-fx-font-size: 30px;");
+            } else if (newVal.length() > 9) {
+                tField.setStyle("-fx-font-size: 38px;");
             } else {
                 tField.setStyle("-fx-font-size: 50px;");
             }
