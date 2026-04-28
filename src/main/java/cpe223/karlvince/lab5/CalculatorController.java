@@ -119,22 +119,42 @@ public class CalculatorController {
     }
 
     private void handleInteraction(String label) {
+        String current = tField.getText();
         switch (label) {
-
-            case "C"    -> { tField.clear(); tField.appendText("0"); }
+            case "="    -> {
+                String result = CalculatorCore.parseOperands(tField);
+                tField.setText(result);
+            }
+            case "C"    -> { tField.setText("0"); }
             case "."    -> tField.appendText(label);
-            case "+"    -> tField.appendText(label);
-            case "−"    -> tField.appendText(label); 
-            case "×"    -> tField.appendText(label);
-            case "÷"    -> tField.appendText(label);
+            case "+", "−", "×", "÷" -> {
+
+                if (current.matches(".*\\d+[+−×÷]\\d+.*")) {
+                    current = CalculatorCore.parseOperands(tField);
+                }
+
+                if (current.matches(".*[+−×÷]$")) {
+                    tField.setText(current.substring(0, current.length() - 1) + label);
+                } else {
+                    tField.setText(current + label);
+                }
+
+            }
 
             case "DEL"  -> {
-                String current = tField.getText();
                 if (current.length() > 1) {
                     tField.setText(current.substring(0, current.length() - 1));
                 } else {
                     tField.setText("0");
                 }
+            }
+
+            case "%"    -> {
+                tField.setText(Double.toString(KVStandardMath.percentage(Double.parseDouble(current))));
+            }
+
+            case "±"    -> {
+                tField.setText(Double.toString(KVStandardMath.negate(Double.parseDouble(current))));
             }
 
             default     -> {
@@ -149,5 +169,8 @@ public class CalculatorController {
         }
 
         System.out.println(String.format("[Calculator Controller] Event '%s' triggered", label));
+
+
+
     }
 }
