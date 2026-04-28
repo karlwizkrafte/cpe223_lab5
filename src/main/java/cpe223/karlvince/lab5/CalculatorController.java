@@ -10,6 +10,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import kaviyeslabs.java.graphics.Theme;
+import kaviyeslabs.java.graphics.ZhanaFX;
+import javafx.stage.Stage;
 
 public class CalculatorController {
 
@@ -86,6 +90,7 @@ public class CalculatorController {
                 if (e.getCode() == KeyCode.T) {
 
                     Scene rootScene = tField.getScene();
+                    Stage stage = (Stage) root.getScene().getWindow();
                     
                     if (themeCycle >= themeMax) {
                         themeCycle = 1;
@@ -93,6 +98,17 @@ public class CalculatorController {
                         themeCycle++;
                     }
                     
+                    if (themeCycle == 1) {
+                        ZhanaFX .on(stage)
+                                .captionColor(Color.web("#263a2e"))
+                                .install();
+                    } else {
+                        ZhanaFX .on(stage)
+                                .captionColor(Color.web("#232323"))
+                                .theme(Theme.DARK)
+                                .install();
+                    }
+
                     System.out.println("[Calculator Controller] Theme cycle: " + themeCycle);
                     ThemeHandler.setTheme(rootScene, themeCycle);
                     e.consume();

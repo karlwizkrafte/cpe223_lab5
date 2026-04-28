@@ -1,13 +1,14 @@
 package cpe223.karlvince.lab5;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-
+import kaviyeslabs.java.graphics.ZhanaFX;
 import kaviyeslabs.java.utility.Toolbox;
 
 public class App extends Application {
@@ -29,6 +30,11 @@ public class App extends Application {
 
         stage.setScene(scene);
         stage.show();
+
+        ZhanaFX .on(stage)
+                .captionColor(Color.web("#263a2e"))
+                .install();
+
     }
 
     static void setRoot(String fxml) throws IOException {
