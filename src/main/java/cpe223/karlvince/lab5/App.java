@@ -21,8 +21,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
 
         scene = new Scene(loadFXML("calculator_main"), SCX, SCY);
-
-        scene.getStylesheets().add(Toolbox.respath("/cpe223/karlvince/lab5/themes/standard_theme.css"));
+        scene.getStylesheets().add(Toolbox.respath("/cpe223/karlvince/lab5/themes/1.css"));
 
         stage.setTitle("Calculator");
         stage.setMinWidth(SCX + 10);

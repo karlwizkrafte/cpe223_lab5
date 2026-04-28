@@ -2,6 +2,7 @@ package cpe223.karlvince.lab5;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
@@ -16,6 +17,9 @@ public class CalculatorController {
     @FXML private VBox root;
     @FXML private TextField tField;
 
+    public int themeCycle = 1;
+    public int themeMax = 2;
+
     // Button
     private static final String[][] BUTTONS = {
         {"C", "DEL", "%", "÷"},
@@ -27,7 +31,6 @@ public class CalculatorController {
 
     @FXML
     public void initialize() {
-
         System.out.println("\n[Calculator Controller] Initializing\n");
 
         root.getStyleClass().add("root");
@@ -69,7 +72,7 @@ public class CalculatorController {
             }
         }
 
-        // Keyboard
+        // Keyboard & Theme
         root.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
             String keyInput = e.getText();
             KeyCode keyCode = e.getCode();
@@ -78,6 +81,23 @@ public class CalculatorController {
                 String label = keyInput.replace("*", "×").replace("/", "÷").replace("-", "−");
                 handleInteraction(label);
                 e.consume();
+            } else if (e.isControlDown() && e.getCode().isLetterKey()) {
+
+                if (e.getCode() == KeyCode.T) {
+
+                    Scene rootScene = tField.getScene();
+                    
+                    if (themeCycle >= themeMax) {
+                        themeCycle = 1;
+                    } else {
+                        themeCycle++;
+                    }
+                    
+                    System.out.println("[Calculator Controller] Theme cycle: " + themeCycle);
+                    ThemeHandler.setTheme(rootScene, themeCycle);
+                    e.consume();
+                }
+                
             } else {
                 switch (keyCode) {
                     case ENTER -> {
