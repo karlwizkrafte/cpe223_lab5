@@ -12,7 +12,7 @@ public class CalculatorCore {
         String resultString;
         Double result = 0.0;
 
-        if (!current.matches(".*[+−×].*")) {
+        if (!current.matches(".*[+÷−×].*")) {
         System.out.println("[Calculator Core] Expected exception has occured: Incomplete Operrands");
         return current; 
         }
