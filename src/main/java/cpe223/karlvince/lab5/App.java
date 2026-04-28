@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import kaviyeslabs.java.graphics.ZhanaFX;
@@ -24,10 +25,12 @@ public class App extends Application {
         scene = new Scene(loadFXML("calculator_main"), SCX, SCY);
         scene.getStylesheets().add(Toolbox.respath("/cpe223/karlvince/lab5/themes/1.css"));
 
+        Image icon = new Image(getClass().getResourceAsStream("/cpe223/karlvince/lab5/icons/KVCal-64px.png"));
+        
         stage.setTitle("Calculator");
         stage.setMinWidth(SCX + 10);
         stage.setMinHeight(SCY + 15);
-
+        stage.getIcons().add(icon);
         stage.setScene(scene);
         stage.show();
 
