@@ -11,7 +11,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import kaviyeslabs.java.graphics.Theme;
 import kaviyeslabs.java.graphics.ZhanaFX;
 import javafx.stage.Stage;
 
@@ -105,7 +104,6 @@ public class CalculatorController {
                     } else {
                         ZhanaFX .on(stage)
                                 .captionColor(Color.web("#232323"))
-                                .theme(Theme.DARK)
                                 .install();
                     }
 
