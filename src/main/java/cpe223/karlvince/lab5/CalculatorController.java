@@ -16,20 +16,23 @@ import javafx.stage.Stage;
 
 public class CalculatorController {
 
-    @FXML private GridPane buttonContainer;
-    @FXML private VBox root;
-    @FXML private TextField tField;
+    @FXML
+    private GridPane buttonContainer;
+    @FXML
+    private VBox root;
+    @FXML
+    private TextField tField;
 
     public int themeCycle = 1;
     public int themeMax = 2;
 
     // Button
     private static final String[][] BUTTONS = {
-        {"C", "DEL", "%", "÷"},
-        {"7", "8", "9", "×"},
-        {"4", "5", "6", "−"},
-        {"1", "2", "3", "+"},
-        {"±", "0", ".", "="},
+            { "C", "DEL", "%", "÷" },
+            { "7", "8", "9", "×" },
+            { "4", "5", "6", "−" },
+            { "1", "2", "3", "+" },
+            { "±", "0", ".", "=" },
     };
 
     @FXML
@@ -38,12 +41,11 @@ public class CalculatorController {
 
         root.getStyleClass().add("root");
         buttonContainer.getStyleClass().add("container");
+
+        // TextField Modifiers
         tField.getStyleClass().add("tf");
-        
-        // TextField Modifier
         tField.setEditable(false);
         tField.setFocusTraversable(false);
-        
         tField.setPrefHeight(100);
         tField.setMinHeight(100);
         tField.setMaxHeight(100);
@@ -55,15 +57,8 @@ public class CalculatorController {
             return null;
         }));
 
-        tField.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal.length() > 13) {
-                tField.setStyle("-fx-font-size: 30px;");
-            } else if (newVal.length() > 9) {
-                tField.setStyle("-fx-font-size: 38px;");
-            } else {
-                tField.setStyle("-fx-font-size: 50px;");
-            }
-        });
+        tField.textProperty().addListener((obs, oldVal, newVal) -> adjustFontSize());
+        tField.widthProperty().addListener((obs, oldVal, newVal) -> adjustFontSize());
 
         buttonContainer.setHgap(0);
         buttonContainer.setVgap(0);
@@ -71,7 +66,7 @@ public class CalculatorController {
             for (int col = 0; col < BUTTONS[row].length; col++) {
                 Button btn = new Button(BUTTONS[row][col]);
                 modifyBtn(btn, row, col, BUTTONS[row][col]);
-                buttonContainer.add(btn, col, row);     
+                buttonContainer.add(btn, col, row);
             }
         }
 
@@ -90,28 +85,24 @@ public class CalculatorController {
 
                     Scene rootScene = tField.getScene();
                     Stage stage = (Stage) root.getScene().getWindow();
-                    
+
                     if (themeCycle >= themeMax) {
                         themeCycle = 1;
                     } else {
                         themeCycle++;
                     }
-                    
+
                     if (themeCycle == 1) {
-                        ZhanaFX .on(stage)
-                                .captionColor(Color.web("#263a2e"))
-                                .install();
+                        ZhanaFX.on(stage).captionColor(Color.web("#263a2e")).install();
                     } else {
-                        ZhanaFX .on(stage)
-                                .captionColor(Color.web("#232323"))
-                                .install();
+                        ZhanaFX.on(stage).captionColor(Color.web("#232323")).install();
                     }
 
                     System.out.println("[Calculator Controller] Theme cycle: " + themeCycle);
                     ThemeHandler.setTheme(rootScene, themeCycle);
                     e.consume();
                 }
-                
+
             } else {
                 switch (keyCode) {
                     case ENTER -> {
@@ -126,7 +117,8 @@ public class CalculatorController {
                         handleInteraction("C");
                         e.consume();
                     }
-                    default -> {}
+                    default -> {
+                    }
                 }
             }
 
@@ -149,18 +141,20 @@ public class CalculatorController {
         });
 
         double margin = 1.5;
-        GridPane.setMargin(btn, new Insets(margin,margin,margin,margin));
+        GridPane.setMargin(btn, new Insets(margin, margin, margin, margin));
     }
 
     private void handleInteraction(String label) {
         String current = tField.getText();
         switch (label) {
-            case "="    -> {
+            case "=" -> {
                 String result = CalculatorCore.parseOperands(tField);
                 tField.setText(result);
             }
-            case "C"    -> { tField.setText("0"); }
-            case "."    -> tField.appendText(label);
+            case "C" -> {
+                tField.setText("0");
+            }
+            case "." -> tField.appendText(label);
             case "+", "−", "×", "÷" -> {
 
                 if (current.matches(".*\\d+[+−×÷]\\d+.*")) {
@@ -175,7 +169,7 @@ public class CalculatorController {
 
             }
 
-            case "DEL"  -> {
+            case "DEL" -> {
                 if (current.length() > 1) {
                     tField.setText(current.substring(0, current.length() - 1));
                 } else {
@@ -183,15 +177,15 @@ public class CalculatorController {
                 }
             }
 
-            case "%"    -> {
+            case "%" -> {
                 tField.setText(CalculatorCore.handlePercentage(current));
             }
 
-            case "±"    -> {
+            case "±" -> {
                 tField.setText(CalculatorCore.handleNegate(current));
             }
 
-            default     -> {
+            default -> {
                 if (label.matches("[0-9]")) {
 
                     if (tField.getText().equals("0")) {
@@ -204,7 +198,23 @@ public class CalculatorController {
 
         System.out.println(String.format("[Calculator Controller] Event '%s' triggered", label));
 
+    }
 
+    private void adjustFontSize() {
+        double width = tField.getWidth();
+        if (width <= 0)
+            return;
 
+        int length = Math.max(1, tField.getText().length());
+
+        double padding = 52.0;
+        double availableWidth = width - padding;
+
+        double calculatedSize = availableWidth / (length * 0.55);
+        double maxFontSize = 48.0;
+
+        double finalSize = Math.min(maxFontSize, Math.max(10.0, calculatedSize));
+
+        tField.setStyle("-fx-font-size: " + finalSize + "px;");
     }
 }
