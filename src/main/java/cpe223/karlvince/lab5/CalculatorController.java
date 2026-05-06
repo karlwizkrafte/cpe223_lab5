@@ -184,11 +184,11 @@ public class CalculatorController {
             }
 
             case "%"    -> {
-                tField.setText(Double.toString(KVStandardMath.percentage(Double.parseDouble(current))));
+                tField.setText(CalculatorCore.handlePercentage(current));
             }
 
             case "±"    -> {
-                tField.setText(Double.toString(KVStandardMath.negate(Double.parseDouble(current))));
+                tField.setText(CalculatorCore.handleNegate(current));
             }
 
             default     -> {
